@@ -13,7 +13,7 @@ M.get_macro_file_path = function()
 
     local macro_config_dir = getDir()
 
-    if (!helpers.dir_exists_v1(macro_config_dir)) then
+    if (not helpers.dir_exists_v1(macro_config_dir)) then
         os.execute("mkdir " .. macro_config_dir)
     end
 
@@ -24,17 +24,15 @@ M.get_macros = function()
     local macro_file_path = M.get_macro_file_path()
 
     print(macro_file_path)
-    
-    if(!helpers.file_exists(macro_file_path)) then
-       helpers.file_write(macro_file_path, "{}")
+
+    if (not helpers.file_exists(macro_file_path)) then
+        helpers.file_write(macro_file_path, "{}")
     end
 
     local macro_json_file = helpers.file_read(macro_file_path)
     local macro_table = helpers.json_decode(macro_json_file)
 
     return { macros = macro_table, macro_filepath = macro_file_path }
-
-    
 end
 
 M.set_macros = function(macroObj)
