@@ -24,7 +24,6 @@ end
 M.file_write = function(filepath, content)
     local file = assert(io.open(filepath, "w+"))
     file:write(content)
-    file:flush()
     file:close()
 end
 
