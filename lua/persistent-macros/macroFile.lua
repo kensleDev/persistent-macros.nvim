@@ -1,4 +1,4 @@
-local helpers = require('macroHelper.helpers')
+local helpers = require('persistent-macros.helpers')
 
 local M = {}
 
@@ -6,9 +6,9 @@ M.get_macro_file_path = function()
     local macro_file_path = ""
 
     if (vim.fn.has('macunix')) then
-        macro_file_path = "/Users/juliani/dotfiles/nvim/.config/nvim/lua/macroHelper/macros.json"
+        macro_file_path = "/Users/juliani/dotfiles/nvim/.config/nvim/lua/persistent-macros/macros.json"
     else
-        macro_file_path = "C:\\Users\\Administrator\\AppData\\Local\\nvim\\lua\\macroHelper\\macros.json"
+        macro_file_path = "C:\\Users\\Administrator\\AppData\\Local\\nvim\\lua\\persistent-macros\\macros.json"
     end
 
     return macro_file_path

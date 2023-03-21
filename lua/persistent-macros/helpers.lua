@@ -1,4 +1,4 @@
-local json = require("macroHelper.libs.dkjson")
+local json = require("persistent-macros.libs.dkjson")
 
 local M = {}
 

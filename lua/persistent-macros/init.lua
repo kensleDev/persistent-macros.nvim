@@ -1,8 +1,8 @@
-local macroFile = require('macroHelper.macroFile')
-local helpers = require('macroHelper.helpers')
+local macroFile = require('persistent-macros.macroFile')
+local helpers = require('persistent-macros.helpers')
 
-vim.cmd('command! -nargs=1 RegToMacro lua require("macroHelper").reg_to_macro(<f-args>)')
-vim.cmd('command! -nargs=1 RegToReg lua require("macroHelper").reg_to_reg(<f-args>)')
+vim.cmd('command! -nargs=1 RegToMacro lua require("persistent-macros").reg_to_macro(<f-args>)')
+vim.cmd('command! -nargs=1 RegToReg lua require("persistent-macros").reg_to_reg(<f-args>)')
 
 -----------------
 
