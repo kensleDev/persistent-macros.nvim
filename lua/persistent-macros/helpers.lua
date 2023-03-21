@@ -22,9 +22,11 @@ M.file_read = function(filepath)
 end
 
 M.file_write = function(filepath, content)
-    local f = io.open(filepath, "w+")
-    f:write(content)
-    f:close()
+    local file = io.open(filepath, "w+")
+    if file ~= nil then
+        file:write(content)
+        file:close()
+    end
 end
 
 M.file_exists = function(name)
@@ -32,7 +34,9 @@ M.file_exists = function(name)
     if f ~= nil then
         io.close(f)
         return true
-    else return false end
+    else
+        return false
+    end
 end
 
 M.dir_exists_v1 = function(path)
