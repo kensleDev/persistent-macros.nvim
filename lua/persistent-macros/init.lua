@@ -1,8 +1,18 @@
 local macroFile = require('persistent-macros.macroFile')
 local helpers = require('persistent-macros.helpers')
 
+local _macro_file_path = ""
+
 vim.cmd('command! -nargs=1 RegToMacro lua require("persistent-macros").reg_to_macro(<f-args>)')
 vim.cmd('command! -nargs=1 RegToReg lua require("persistent-macros").reg_to_reg(<f-args>)')
+vim.cmd('command! -nargs=1 ShowMacros lua require("persistent-macros").show_macros(<f-args>)')
+-----------------
+
+local function setup(macro_file_path)
+    _macro_file_path = macro_file_path
+    local macroObj = macroFile.get_macros(tostring(macro_file_path))
+    macroFile.json_macros_to_commands(macroObj.macros)
+end
 
 -----------------
 
@@ -30,15 +40,22 @@ local function reg_to_reg(args)
     vim.fn.setreg(regFrom, toContents)
 end
 
------------------
-
-local function setup(macro_file_path)
-    local macroObj = macroFile.get_macros(tostring(macro_file_path))
-    macroFile.json_macros_to_commands(macroObj.macros)
+local function show_macros()
+    -- if vim.g.vscode then
+    --     print(_macro_file_path)
+    --     os.execute('code ' .. _macro_file_path)
+    --     -- VSCode extension
+    -- else
+    -- ordinary Neovim
+    vim.api.nvim_exec('e ' .. _macro_file_path, false)
+    -- end
 end
+
+-----------------
 
 return {
     setup = setup,
     reg_to_macro = reg_to_macro,
     reg_to_reg = reg_to_reg,
+    show_macros = show_macros
 }
