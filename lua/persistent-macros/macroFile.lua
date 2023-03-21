@@ -3,8 +3,6 @@ local helpers = require('persistent-macros.helpers')
 local M = {}
 
 M.get_macros = function(macro_file_path)
-    print(macro_file_path)
-
     if (not helpers.file_exists(macro_file_path)) then
         helpers.file_write(macro_file_path, "{ \"Test\": \"this is a test\" }")
     end

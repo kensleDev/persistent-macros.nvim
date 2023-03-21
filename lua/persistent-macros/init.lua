@@ -51,11 +51,26 @@ local function show_macros()
     end
 end
 
+local function macro_to_reg(args)
+    local _args = helpers.split(args)
+
+    local macroName = _args[1]
+    local register = _args[2]
+
+    local macroObj = macroFile.get_macros(_macro_file_path)
+    local macros = macroObj.macros
+    local currentMacroValue = tostring(macros[macroName])
+
+    if (currentMacroValue.len > 0) then
+        vim.fn.setreg(register, currentMacroValue)
+    end
+end
 -----------------
 
 return {
     setup = setup,
     reg_to_macro = reg_to_macro,
     reg_to_reg = reg_to_reg,
-    show_macros = show_macros
+    show_macros = show_macros,
+    macro_to_reg = macro_to_reg
 }
