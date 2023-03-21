@@ -22,7 +22,7 @@ M.file_read = function(filepath)
 end
 
 M.file_write = function(filepath, content)
-    local file = io.open(filepath, "w")
+    local file = io.open(filepath, "w+")
     if file ~= nil then
         file:write(content)
         file:close()
