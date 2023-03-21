@@ -2,27 +2,7 @@ local helpers = require('persistent-macros.helpers')
 
 local M = {}
 
-M.get_macro_file_path = function()
-    local function getDir()
-        if (vim.fn.has('macunix')) then
-            return os.getenv("HOME") .. ".config/persistent-macros/"
-        else
-            return os.getenv("HOME") .. ".config\\persistent-macros\\"
-        end
-    end
-
-    local macro_config_dir = getDir()
-
-    if (not helpers.dir_exists_v1(macro_config_dir)) then
-        os.execute("mkdir " .. macro_config_dir)
-    end
-
-    return macro_config_dir .. "macros.json"
-end
-
-M.get_macros = function()
-    local macro_file_path = M.get_macro_file_path()
-
+M.get_macros = function(macro_file_path)
     print(macro_file_path)
 
     if (not helpers.file_exists(macro_file_path)) then

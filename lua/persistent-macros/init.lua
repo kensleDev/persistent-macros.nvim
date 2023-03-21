@@ -32,9 +32,8 @@ end
 
 -----------------
 
-local function setup()
-    print(os.getenv("HOME"))
-    local macroObj = macroFile.get_macros()
+local function setup(macro_file_path)
+    local macroObj = macroFile.get_macros(tostring(macro_file_path))
     macroFile.json_macros_to_commands(macroObj.macros)
 end
 
