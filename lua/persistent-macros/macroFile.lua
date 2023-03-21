@@ -6,7 +6,7 @@ M.get_macros = function(macro_file_path)
     print(macro_file_path)
 
     if (not helpers.file_exists(macro_file_path)) then
-        helpers.file_write(macro_file_path, "This is a test")
+        helpers.file_write(macro_file_path, {})
     end
 
     local macro_json_file = helpers.file_read(macro_file_path)
