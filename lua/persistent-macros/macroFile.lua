@@ -6,7 +6,7 @@ M.get_macros = function(macro_file_path)
     print(macro_file_path)
 
     if (not helpers.file_exists(macro_file_path)) then
-        helpers.file_write(macro_file_path, "{ \"test\": \"this is a test\" }")
+        helpers.file_write(macro_file_path, "{ \"Test\": \"this is a test\" }")
     end
 
     local macro_json_file = helpers.file_read(macro_file_path)
@@ -44,7 +44,7 @@ end
 
 M.json_macros_to_commands = function(macros)
     for k, v in pairs(macros) do
-        local string_func = "function!" .. k .. "() \n normal " .. v .. "\n endfunction"
+        local string_func = "function!" .. helpers.str_firstToUpper(k) .. "() \n normal " .. v .. "\n endfunction"
         vim.api.nvim_exec(string_func, false)
     end
 end

@@ -75,4 +75,8 @@ M.str_split = function(inputstr, sep)
     return t
 end
 
+M.str_firstToUpper = function(str)
+    return (str:gsub("^%l", string.upper))
+end
+
 return M
