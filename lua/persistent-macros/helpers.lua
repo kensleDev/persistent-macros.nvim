@@ -22,11 +22,9 @@ M.file_read = function(filepath)
 end
 
 M.file_write = function(filepath, content)
-    local file = io.open(filepath, "w+")
-    if file ~= nil then
-        file:write(content)
-        file:close()
-    end
+    local file = assert(io.open(filepath, "w+"))
+    file:write(content)
+    file:close()
 end
 
 M.file_exists = function(name)
