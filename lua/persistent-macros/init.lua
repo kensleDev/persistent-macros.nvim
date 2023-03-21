@@ -41,14 +41,14 @@ local function reg_to_reg(args)
 end
 
 local function show_macros()
-    -- if vim.g.vscode then
-    --     print(_macro_file_path)
-    --     os.execute('code ' .. _macro_file_path)
-    --     -- VSCode extension
-    -- else
-    -- ordinary Neovim
-    vim.api.nvim_exec('e ' .. _macro_file_path, false)
-    -- end
+    if vim.g.vscode then
+        print(_macro_file_path)
+        os.execute('code ' .. _macro_file_path)
+        -- VSCode extension
+    else
+        -- ordinary Neovim
+        vim.api.nvim_exec('e ' .. _macro_file_path, false)
+    end
 end
 
 -----------------
