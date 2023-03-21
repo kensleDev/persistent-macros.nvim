@@ -10,7 +10,7 @@ vim.cmd('command! -nargs=1 ShowMacros lua require("persistent-macros").show_macr
 
 local function setup(macro_file_path)
     _macro_file_path = macro_file_path
-    local macroObj = macroFile.get_macros(tostring(macro_file_path))
+    local macroObj = macroFile.get_macros(macro_file_path)
     macroFile.json_macros_to_commands(macroObj.macros)
 end
 

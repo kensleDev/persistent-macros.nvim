@@ -15,7 +15,7 @@ M.table_contains = function(table, key)
 end
 
 M.file_read = function(filepath)
-    local f = assert(io.open(filepath, "w"))
+    local f = assert(io.open(filepath, "r"))
     local content = f:read("*all")
     f:close()
     return tostring(content)
