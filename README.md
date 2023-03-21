@@ -1,6 +1,6 @@
-# Persistent Macros
+# Persistent Macros Neovim
 
-An very simple plugin to provide extra functionality around macros. 
+A simple plugin to provide extra functionality around macros. 
 
 ## ✨ Features
 
@@ -19,7 +19,7 @@ An very simple plugin to provide extra functionality around macros.
     "kensleDev/persistent-macros.nvim",
     event = "VeryLazy",
     config = function()
-        local macroFileLocation = "C:\\Users\\Administrator\\.config\\macros.json"
+        local macroFileLocation = "C:\\Users\\{USERNAME}\\.config\\macros.json"
         require('persistent-macros').setup(macroFileLocation)
     end
 }
@@ -27,7 +27,8 @@ An very simple plugin to provide extra functionality around macros.
 
 ## 🧑‍🏭  Usage
 
-> **Before use make sure to pass the macroFileLocation to the setup function**: 
+> **Before use make sure to pass the macroFileLocation to the setup function as above**
+
 
 ### RegToMacro
 
@@ -95,9 +96,7 @@ Opens the macros file in the current editor. Works with neovim or VSCode
 
 ### Sync across instances
 
-As the plugin is driven from a external json file json file it can easily be backed up for use on other instances.
-
-To trial different configs, update the macro file location in the setup function.
+As the plugin is driven from a external json file json file it can easily be backed up for use on other instances/machines via source control
 
 
 ## Dependencies
