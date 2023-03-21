@@ -1,4 +1,6 @@
-# Persistent Macros Neovim
+# Persistent Macros Neovim (Beta) 
+
+> **This is plugin is in Beta and is not ready for use. This is my first neovim plugin, please bare with me while I work out the kinks**
 
 A simple plugin to provide extra functionality around macros. 
 
@@ -84,7 +86,7 @@ Swaps the position of the 2 specified registers
 :RegToReg a b
 ```
 
-#### ShowMacros()
+### ShowMacros()
 
 Opens the macros file in the current editor. Works with neovim or VSCode
 
