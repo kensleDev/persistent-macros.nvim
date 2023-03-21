@@ -27,6 +27,21 @@ M.file_write = function(filepath, content)
     f:close()
 end
 
+M.file_exists = function(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else return false end
+end
+
+M.dir_exists_v1 = function(path)
+    if (lfs.attributes(path, "mode") == "directory") then
+        return true
+    end
+    return false
+end
+
 M.json_decode = function(json_file_string)
     local currentJsonFileTable = {}
 
