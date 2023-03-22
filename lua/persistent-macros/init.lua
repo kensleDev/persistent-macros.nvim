@@ -54,15 +54,16 @@ end
 local function macro_to_reg(args)
     local _args = helpers.str_split(args)
 
-    local macroName = _args[1]
-    local register = _args[2]
+    local macroName = tostring(_args[1])
+    local register = tostring(_args[2])
 
     local macroObj = macroFile.get_macros(_macro_file_path)
     local macros = macroObj.macros
-    local currentMacroValue = tostring(macros[macroName])
 
-    if (currentMacroValue.len > 0) then
-        vim.fn.setreg(register, currentMacroValue)
+    local valueInTable = helpers.table_contains(macros, macroName)
+
+    if (valueInTable) then
+        vim.fn.setreg(register, tostring(macros[macroName]))
     end
 end
 -----------------
