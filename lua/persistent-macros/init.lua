@@ -30,7 +30,7 @@ local function reg_to_macro(args)
 end
 
 local function reg_to_reg(args)
-    local _args = helpers.split(args)
+    local _args = helpers.str_split(args)
     local regFrom = _args[1]
     local regTo = _args[2]
 
@@ -52,7 +52,7 @@ local function show_macros()
 end
 
 local function macro_to_reg(args)
-    local _args = helpers.split(args)
+    local _args = helpers.str_split(args)
 
     local macroName = _args[1]
     local register = _args[2]
