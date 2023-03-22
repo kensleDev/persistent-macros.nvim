@@ -1,21 +1,12 @@
-local helpers = require('macroHelper.helpers')
+local helpers = require('persistent-macros.helpers')
 
 local M = {}
 
-M.get_macro_file_path = function()
-    local macro_file_path = ""
-
-    if (vim.fn.has('macunix')) then
-        macro_file_path = "/Users/juliani/dotfiles/nvim/.config/nvim/lua/macroHelper/macros.json"
-    else
-        macro_file_path = "C:\\Users\\Administrator\\AppData\\Local\\nvim\\lua\\macroHelper\\macros.json"
+M.get_macros = function(macro_file_path)
+    if (not helpers.file_exists(macro_file_path)) then
+        helpers.file_write(macro_file_path, "{ \"Test\": \"this is a test\" }")
     end
 
-    return macro_file_path
-end
-
-M.get_macros = function()
-    local macro_file_path = M.get_macro_file_path()
     local macro_json_file = helpers.file_read(macro_file_path)
     local macro_table = helpers.json_decode(macro_json_file)
 
@@ -28,19 +19,19 @@ M.set_macros = function(macroObj)
     helpers.file_write(macroObj.macro_filepath, newJsonFileString)
 end
 
-M.register_to_json = function(register, funcName)
+M.register_to_json = function(register, func_name, macro_file_path)
     local contents = tostring(vim.fn.getreg(register))
 
     -- Convert macros.json to table
-    local macroObj = M.get_macros()
+    local macroObj = M.get_macros(macro_file_path)
 
     -- Alert if overwriting existing macro
-    if (helpers.table_contains(macroObj.macros, funcName)) then
-        print("Overwriting macro: " + funcName)
+    if (helpers.table_contains(macroObj.macros, func_name)) then
+        print("Overwriting macro: " + func_name)
     end
 
     -- Add macros to table
-    macroObj.macros[funcName] = contents
+    macroObj.macros[func_name] = contents
 
     -- write macros to file
     M.set_macros(macroObj)
@@ -51,7 +42,7 @@ end
 
 M.json_macros_to_commands = function(macros)
     for k, v in pairs(macros) do
-        local string_func = "function!" .. k .. "() \n normal " .. v .. "\n endfunction"
+        local string_func = "function!" .. helpers.str_firstToUpper(k) .. "() \n normal " .. v .. "\n endfunction"
         vim.api.nvim_exec(string_func, false)
     end
 end
