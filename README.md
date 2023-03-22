@@ -8,9 +8,11 @@ A simple plugin to provide extra functionality around macros.
 
 - 💾 Save named macros from registers and expose them via a command
 - 🏭 Convert named macros to registers
+- ✏️ Edit macros in your current editor
 - 🔀 Swap register positions
 - 🔁 Sync macros across instances
 - 🔧 Works with VSCode Neovim
+
 
 ## 📦 Install
 
@@ -28,7 +30,20 @@ A simple plugin to provide extra functionality around macros.
 
 ## 🧑‍🏭  Usage
 
-> **Before use make sure to pass the macroFileLocation to the setup function as above. The default location is relative to the users home fodler. If not using a location relative to the home folder pass the absolute path**
+> **Before use make sure to pass the macroFileLocation to the setup function as above. The default location is relative to the users home folder. If not using a location relative to the home folder pass the absolute path**
+
+```
+config = function()
+    -- relative to home directory (unix or windows)
+    require('persistent-macros').setup(".config/macros.json")
+
+    -- absolute unix
+    require('persistent-macros').setup("/home/{USERNAME}/.config/macros.json")
+
+    -- absolute windows
+    require('persistent-macros').setup("C:\\Users\\{USERNAME}\\.config\\macros.json")
+end
+```
 
 
 ### RegToMacro
@@ -65,14 +80,14 @@ Convert a named function to a register.
 | register  | string | The register to put the macro in |
 |           |        |                                  |
 
-1. Call the command with the Macro name and register
+1. Call the command with the Macro name and register to store it in
 ```
 :call RegToMacro Test g
 ```
 
 ### RegToReg
 
-Swaps the position of the 2 specified registers
+Swaps the position of the 2 specified registers.
 
 | arg          | type   | info         |
 | ------------ | ------ | ------------ |
@@ -87,7 +102,7 @@ Swaps the position of the 2 specified registers
 
 ### ShowMacros()
 
-Opens the macros file in the current editor. Works with neovim or VSCode
+Opens the macros file in the current editor. Works with Neovim or VSCode.
 
 1. Call the command
 ```
@@ -97,7 +112,7 @@ Opens the macros file in the current editor. Works with neovim or VSCode
 
 ### Sync across instances
 
-As the plugin is driven from a external json file json file it can easily be backed up for use on other instances/machines via source control
+As the plugin is driven from a external json file json file it can easily be backed up for use on other instances/machines via source control.
 
 
 ## Dependencies
