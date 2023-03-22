@@ -5,6 +5,7 @@ local _macro_file_path = ""
 
 vim.cmd('command! -nargs=1 RegToMacro lua require("persistent-macros").reg_to_macro(<f-args>)')
 vim.cmd('command! -nargs=1 RegToReg lua require("persistent-macros").reg_to_reg(<f-args>)')
+vim.cmd('command! -nargs=1 MacroToReg lua require("persistent-macros").macro_to_reg(<f-args>)')
 vim.cmd('command! -nargs=1 ShowMacros lua require("persistent-macros").show_macros(<f-args>)')
 -----------------
 
