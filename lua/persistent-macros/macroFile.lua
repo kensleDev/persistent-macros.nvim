@@ -42,6 +42,8 @@ end
 
 M.json_macros_to_commands = function(macros)
     for k, v in pairs(macros) do
+        print(k)
+        print(v)
         local string_func = "function!" .. helpers.str_firstToUpper(k) .. "() \n normal " .. v .. "\n endfunction"
         vim.api.nvim_exec(string_func, false)
     end
