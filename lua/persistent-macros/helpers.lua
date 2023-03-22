@@ -15,9 +15,9 @@ M.table_contains = function(table, key)
 end
 
 M.file_read = function(filepath)
-    local f = assert(io.open(filepath, "r"))
-    local content = f:read("*all")
-    f:close()
+    local file = assert(io.open(filepath, "r"))
+    local content = file:read("*all")
+    file:close()
     return tostring(content)
 end
 
@@ -28,9 +28,9 @@ M.file_write = function(filepath, content)
 end
 
 M.file_exists = function(name)
-    local f = io.open(name, "r")
-    if f ~= nil then
-        io.close(f)
+    print(name)
+    local fileContent = M.file_read(name)
+    if (fileContent.len > 0) then
         return true
     else
         return false
