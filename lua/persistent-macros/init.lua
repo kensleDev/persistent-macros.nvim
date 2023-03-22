@@ -22,7 +22,7 @@ local function reg_to_macro(args)
     local funcName = tostring(_args[2])
 
     -- Add macro to json file
-    local macros = macroFile.register_to_json(register, funcName)
+    local macros = macroFile.register_to_json(register, funcName, _macro_file_path)
 
     -- Convert macro into vimscript command
     macroFile.json_macros_to_commands(macros)
@@ -42,7 +42,6 @@ end
 
 local function show_macros()
     if vim.g.vscode then
-        print(_macro_file_path)
         os.execute('code ' .. _macro_file_path)
         -- VSCode extension
     else

@@ -3,7 +3,6 @@ local helpers = require('persistent-macros.helpers')
 local M = {}
 
 M.get_macros = function(macro_file_path)
-    print("MACRO FILE: " .. macro_file_path)
     if (not helpers.file_exists(macro_file_path)) then
         helpers.file_write(macro_file_path, "{ \"Test\": \"this is a test\" }")
     end
@@ -20,19 +19,19 @@ M.set_macros = function(macroObj)
     helpers.file_write(macroObj.macro_filepath, newJsonFileString)
 end
 
-M.register_to_json = function(register, funcName)
+M.register_to_json = function(register, func_name, macro_file_path)
     local contents = tostring(vim.fn.getreg(register))
 
     -- Convert macros.json to table
-    local macroObj = M.get_macros()
+    local macroObj = M.get_macros(macro_file_path)
 
     -- Alert if overwriting existing macro
-    if (helpers.table_contains(macroObj.macros, funcName)) then
-        print("Overwriting macro: " + funcName)
+    if (helpers.table_contains(macroObj.macros, func_name)) then
+        print("Overwriting macro: " + func_name)
     end
 
     -- Add macros to table
-    macroObj.macros[funcName] = contents
+    macroObj.macros[func_name] = contents
 
     -- write macros to file
     M.set_macros(macroObj)
