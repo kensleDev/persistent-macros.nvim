@@ -9,9 +9,22 @@ M.set = function(list)
 end
 
 M.table_contains = function(table, key)
-    local _set = M.set(table)
-    if _set[key] then return true end
+    for _, v in pairs(table) do
+        if v == key then return true end
+    end
     return false
+end
+
+M.table_contains_key = function(table, key)
+    local contains_key = false
+
+    for k, v in pairs(table) do
+        if (k == key) then
+            contains_key = true
+        end
+    end
+
+    return contains_key
 end
 
 M.file_read = function(filepath)

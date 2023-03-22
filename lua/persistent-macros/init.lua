@@ -69,10 +69,12 @@ local function macro_to_reg(args)
     local macroObj = macroFile.get_macros(_macro_file_path)
     local macros = macroObj.macros
 
-    local valueInTable = helpers.table_contains(macros, macroName)
+    local valueInTable = helpers.table_contains_key(macros, macroName)
+
+    local macro = tostring(macros[macroName])
 
     if (valueInTable) then
-        vim.fn.setreg(register, tostring(macros[macroName]))
+        vim.fn.setreg(register, macro)
     end
 end
 -----------------
