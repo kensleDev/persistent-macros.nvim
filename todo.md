@@ -28,7 +28,10 @@
 
 # Macro file location
 
-[ ] Relative paths working on Windows, needs checking on unix
-[ ] Absolute paths have been used up until now so should work without issue, will check on systems to confirm.
+[/] Relative paths working on Windows, needs checking on unix
+[x] Absolute paths have been used up until now so should work without issue, will check on systems to confirm.
 
 
+# Misc
+
+[ ] - 
