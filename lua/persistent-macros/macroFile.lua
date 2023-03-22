@@ -41,8 +41,6 @@ M.register_to_json = function(register, func_name, macro_file_path)
 end
 
 M.json_macros_to_commands = function(macros)
-    for i, v in ipairs(macros) do print(i, v) end
-
     for k, v in pairs(macros) do
         local string_func = "function!" .. helpers.str_firstToUpper(k) .. "() \n normal " .. v .. "\n endfunction"
         vim.api.nvim_exec(string_func, false)
