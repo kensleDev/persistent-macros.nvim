@@ -10,11 +10,17 @@ vim.cmd('command! -nargs=1 ShowMacros lua require("persistent-macros").show_macr
 -----------------
 
 local function setup(macro_file_path)
-    _macro_file_path = macro_file_path
-    local macroObj = macroFile.get_macros(macro_file_path)
+    local firstLetter = macro_file_path:sub(0, 1)
+    local withoutDriveLetter = macro_file_path:sub(1, 3)
 
+    if (firstLetter == "/" or withoutDriveLetter == ":\\") then
+        _macro_file_path = macro_file_path
+    else
+        _macro_file_path = helpers.assemble_home_path(macro_file_path)
+    end
+
+    local macroObj = macroFile.get_macros(_macro_file_path)
     for i, v in ipairs(macroObj.macros) do print(i, v) end
-
     macroFile.json_macros_to_commands(macroObj.macros)
 end
 

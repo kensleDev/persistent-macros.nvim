@@ -21,15 +21,14 @@ A simple plugin to provide extra functionality around macros.
     "kensleDev/persistent-macros.nvim",
     event = "VeryLazy",
     config = function()
-        local macroFileLocation = "C:\\Users\\{USERNAME}\\.config\\macros.json"
-        require('persistent-macros').setup(macroFileLocation)
+        require('persistent-macros').setup(".config/macros.json")
     end
 }
 ```
 
 ## 🧑‍🏭  Usage
 
-> **Before use make sure to pass the macroFileLocation to the setup function as above**
+> **Before use make sure to pass the macroFileLocation to the setup function as above. The default location is relative to the users home fodler. If not using a location relative to the home folder pass the absolute path**
 
 
 ### RegToMacro

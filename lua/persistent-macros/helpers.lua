@@ -28,7 +28,6 @@ M.file_write = function(filepath, content)
 end
 
 M.file_exists = function(name)
-    print(name)
     local f = io.open(name, "r")
     if f ~= nil then
         io.close(f)
@@ -78,6 +77,37 @@ end
 
 M.str_firstToUpper = function(str)
     return (str:gsub("^%l", string.upper))
+end
+
+M.is_mac_unix = function()
+    return vim.fn.has('macunix')
+end
+
+M.get_home_dir = function()
+    local home_dir = ""
+    local is_mac_unix = M.is_mac_unix()
+
+    if (is_mac_unix) then
+        home_dir = vim.fn.expand('~/')
+    else
+        home_dir = vim.fn.expand('$HOME\\')
+    end
+
+    return home_dir
+end
+
+M.assemble_home_path = function(path)
+    local home_dir = M.get_home_dir()
+    local newPath = ""
+
+    if (vim.fn.has('macunix') == true) then
+        newPath = home_dir .. path
+    else
+        local reaplced = path:gsub("/", "\\")
+        newPath = home_dir .. reaplced
+    end
+
+    return newPath
 end
 
 return M
