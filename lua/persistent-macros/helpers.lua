@@ -28,9 +28,9 @@ M.file_write = function(filepath, content)
 end
 
 M.file_exists = function(name)
-    print(name)
-    local fileContent = M.file_read(name)
-    if (fileContent.len > 0) then
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
         return true
     else
         return false
