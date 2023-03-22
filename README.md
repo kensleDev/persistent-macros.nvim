@@ -1,6 +1,4 @@
-# Persistent Macros Neovim (Beta) 
-
-> **This is plugin is in Beta and is not ready for use. This is my first neovim plugin, please bare with me while I work out the kinks**
+# Persistent Macros Neovim 
 
 A simple plugin to provide extra functionality around macros. 
 
