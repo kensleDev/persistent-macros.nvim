@@ -2,6 +2,8 @@
 
 A simple plugin to provide extra functionality around macros. 
 
+(Blog post)[https://dev.to/juliani/boosting-your-neovim-workflow-a-guide-to-the-persistent-macros-neovim-plugin-34p3-temp-slug-9609331/edit#-%E2%8C%A8%EF%B8%8F-using-custom-commands-with-key-bindings]
+
 ## Contents
 
 - [Persistent Macros Neovim](#persistent-macros-neovim)
@@ -25,9 +27,10 @@ A simple plugin to provide extra functionality around macros.
 
 - 💾 Save named macros from registers and expose them via a command
 - 🏭 Convert named macros to registers
-- ✏️ Edit macros in your current editor
 - 🔀 Swap register positions
 - 🔁 Sync macros across instances
+- ✏️ Edit macros in your current editor
+- 🗺 Map macro commands to key binds in your current editor
 - 🔧 Works with VSCode Neovim
 
 ## 📦 Install
