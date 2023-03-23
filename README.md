@@ -2,6 +2,25 @@
 
 A simple plugin to provide extra functionality around macros. 
 
+## Contents
+
+- [Persistent Macros Neovim](#persistent-macros-neovim)
+  - [Contents](#contents)
+  - [✨ Features](#-features)
+  - [📦 Install](#-install)
+  - [🧑‍🏭  Usage](#--usage)
+    - [RegToMacro](#regtomacro)
+    - [MacroToReg](#macrotoreg)
+    - [RegToReg](#regtoreg)
+    - [ShowMacros()](#showmacros)
+    - [Sync across instances](#sync-across-instances)
+  - [Using custom commands with keybindings](#using-custom-commands-with-keybindings)
+    - [Neovim Mappings](#neovim-mappings)
+    - [VSCode Keyboard Shortcut](#vscode-keyboard-shortcut)
+    - [Which key binding (VSCode)](#which-key-binding-vscode)
+  - [Dependencies](#dependencies)
+
+
 ## ✨ Features
 
 - 💾 Save named macros from registers and expose them via a command
@@ -11,7 +30,6 @@ A simple plugin to provide extra functionality around macros.
 - 🔁 Sync macros across instances
 - 🔧 Works with VSCode Neovim
 
-
 ## 📦 Install
 
 - 💤Lazy.nvim config
@@ -20,6 +38,7 @@ A simple plugin to provide extra functionality around macros.
 {
     "kensleDev/persistent-macros.nvim",
     event = "VeryLazy",
+    branch = "main",
     config = function()
         require('persistent-macros').setup(".config/macros.json")
     end
@@ -111,6 +130,52 @@ Opens the macros file in the current editor. Works with Neovim or VSCode.
 ### Sync across instances
 
 As the plugin is driven from a external json file json file it can easily be backed up for use on other instances/machines via source control.
+
+
+## Using custom commands with keybindings
+
+When you save a macro the plugin registers a command that can be called via Neovim. For example if you save a macro called “Test” then the following command will be available:
+
+```bash
+:call Test()
+```
+
+These commands can then be used in: 
+
+### Neovim Mappings
+
+```bash
+vim.keymap.set("n", "<leader>m", function()
+    vim.cmd([[:ShowMacros()]])
+end, { noremap = true, silent = true })
+```
+
+### VSCode Keyboard Shortcut
+
+```json
+{
+    "key": "ctrl+m",
+    "command": "vscode-neovim.send",
+    "args": ":ShowMacros()<cr>",
+    "when": "editorTextFocus && neovim.mode != insert"
+}
+```
+
+### Which key binding (VSCode)
+
+```json
+"whichkey.bindings": [
+  ...
+  {
+    "name": "Neovim test",
+    "key": "m",
+    "command": "vscode-neovim.send",
+    "args": ":ShowMacros()<cr>",
+    "when": "editorTextFocus && neovim.mode != insert"
+  },
+  ...
+]
+```
 
 
 ## Dependencies
