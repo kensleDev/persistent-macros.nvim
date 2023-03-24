@@ -1,0 +1,1 @@
+return {["JJJS"]="g",["JJS"]="g",["UUA"]="g",["Tester"]="yyp"}

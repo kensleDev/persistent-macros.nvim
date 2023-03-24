@@ -1,5 +1,5 @@
-local macroFile = require('persistent-macros.macroFile')
-local helpers = require('persistent-macros.helpers')
+local h = require('persistent-macros.helpers')
+local macro_store = require('persistent-macros.store.macro_store')
 
 local _macro_file_path = ""
 
@@ -16,39 +16,17 @@ local function setup(macro_file_path)
     if (firstLetter == "/" or withoutDriveLetter == ":\\") then
         _macro_file_path = macro_file_path
     else
-        _macro_file_path = helpers.assemble_home_path(macro_file_path)
+        _macro_file_path = h.io.assemble_home_path(macro_file_path)
     end
 
-    local macroObj = macroFile.get_macros(_macro_file_path)
-    for i, v in ipairs(macroObj.macros) do print(i, v) end
-    macroFile.json_macros_to_commands(macroObj.macros)
+    print(_macro_file_path)
+    local macros = macro_store.get_macros(_macro_file_path)
+    macro_store.macros_to_commands(macros)
+
+    print(h.table.to_string(macros))
 end
 
 -----------------
-
-local function reg_to_macro(args)
-    local _args = helpers.str_split(args)
-    local register = _args[1]
-    local funcName = tostring(_args[2])
-
-    -- Add macro to json file
-    local macros = macroFile.register_to_json(register, funcName, _macro_file_path)
-
-    -- Convert macro into vimscript command
-    macroFile.json_macros_to_commands(macros)
-end
-
-local function reg_to_reg(args)
-    local _args = helpers.str_split(args)
-    local regFrom = _args[1]
-    local regTo = _args[2]
-
-    local fromContents = tostring(vim.fn.getreg(regFrom))
-    local toContents = tostring(vim.fn.getreg(regTo))
-
-    vim.fn.setreg(regTo, fromContents)
-    vim.fn.setreg(regFrom, toContents)
-end
 
 local function show_macros()
     if vim.g.vscode then
@@ -60,22 +38,69 @@ local function show_macros()
     end
 end
 
-local function macro_to_reg(args)
-    local _args = helpers.str_split(args)
+local function reg_to_macro(args)
+    local _args = h.string.split(args)
+    local register = _args[1]
+    local funcName = tostring(_args[2])
 
+    local registerValue = tostring(vim.fn.getreg(register))
+
+    if(registerValue.len == 0) then
+        print("Register: " .. register .. " is empty")
+        return
+    end
+
+    local macros = macro_store.add_macro(_macro_file_path, funcName, register)
+    macro_store.macros_to_commands(macros) -- TODO: Optimise
+
+    print("Macro added: " .. funcName)
+end
+
+local function reg_to_reg(args)
+    local _args = h.string.split(args)
+    local regFrom = _args[1]
+    local regTo = _args[2]
+
+    local fromContents = tostring(vim.fn.getreg(regFrom))
+    local toContents = tostring(vim.fn.getreg(regTo))
+
+    if(fromContents.len == 0 and toContents == 0) then
+        print("Registers are empty: from: " ..regFrom .. " to: " .. regTo)
+        return
+    end
+
+    vim.fn.setreg(regTo, fromContents)
+    vim.fn.setreg(regFrom, toContents)
+end
+
+local function macro_to_reg(args)
+    local _args = h.string.split(args)
     local macroName = tostring(_args[1])
     local register = tostring(_args[2])
 
-    local macroObj = macroFile.get_macros(_macro_file_path)
-    local macros = macroObj.macros
+    local macros = macro_store.get_macros(_macro_file_path)
 
-    local valueInTable = helpers.table_contains_key(macros, macroName)
-
-    local macro = tostring(macros[macroName])
-
-    if (valueInTable) then
-        vim.fn.setreg(register, macro)
+    if (h.table.contains_key(macros, macroName)) then
+        vim.fn.setreg(register, macros[macroName])
+    else
+        print("Macro not found: " .. macroName)
     end
+end
+
+local remove_macro = function(args)
+    local _args = h.string.split(args)
+    local macroName = tostring(_args[1])
+
+    local macros = macro_store.get_macros(_macro_file_path)
+
+    if (h.table.contains_key(macros, macroName)) then
+        macro_store.remove_macro(_macro_file_path, macroName)
+        macro_store.macros_to_commands(macros) -- TODO: Optimise
+        print("Macro removed: " .. macroName)
+    else
+        print("Macro not found: " .. macroName)
+    end
+    
 end
 -----------------
 
@@ -84,5 +109,6 @@ return {
     reg_to_macro = reg_to_macro,
     reg_to_reg = reg_to_reg,
     show_macros = show_macros,
-    macro_to_reg = macro_to_reg
+    macro_to_reg = macro_to_reg,
+    remove_macro = remove_macro
 }
