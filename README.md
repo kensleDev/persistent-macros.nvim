@@ -4,6 +4,8 @@ A simple plugin to provide extra functionality around macros.
 
 [Blog post](https://dev.to/juliani/boosting-your-neovim-workflow-a-guide-to-the-persistent-macros-neovim-plugin-34p3-temp-slug-9609331/edit#-%E2%8C%A8%EF%B8%8F-using-custom-commands-with-key-bindings)
 
+> ** Release postposed ** see this [issue](https://github.com/kensleDev/persistent-macros.nvim/issues/1)
+
 ## Contents
 
 - [Persistent Macros Neovim](#persistent-macros-neovim)
