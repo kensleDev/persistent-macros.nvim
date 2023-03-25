@@ -3,10 +3,8 @@ local h = require('persistent-macros.helpers')
 
 local get_macros = function(file_path)
 
-    print(file_path)
-    
     if(not h.io.file_exists(file_path)) then
-        print("Writing macros.lua file")
+        h.notify.message("Writing macros.lua file to: " .. file_path, "info")
         h.io.file_write(file_path, "return { Test = \"yyp\"}")
     end
 
@@ -25,10 +23,10 @@ end
 
 local add_macro = function(file_path, name, macro)
     local macros = get_macros(file_path)
-    
-    macros[name] = macro
-    local macrosString = "return " .. h.table.to_string(macros)
+    local registerContents = tostring(vim.fn.getreg(macro))
 
+    macros[name] = registerContents
+    
     write_table_to_file(file_path, macros)
 
     return macros

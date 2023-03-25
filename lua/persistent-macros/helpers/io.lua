@@ -18,7 +18,6 @@ M.file_write = function(filepath, content)
 end
 
 M.file_exists = function(name)
-    print(name)
     local f = io.open(name, "r")
     if f ~= nil then
         io.close(f)
