@@ -2,6 +2,8 @@
 local h = require('persistent-macros.helpers')
 
 local get_macros = function(file_path)
+
+    print(file_path)
     
     if(not h.io.file_exists(file_path)) then
         print("Writing macros.lua file")
@@ -21,23 +23,23 @@ local write_table_to_file = function(file_path, table)
 end
 
 
-local add_macro = function(filepath, name, macro)
-    local macros = get_macros()
+local add_macro = function(file_path, name, macro)
+    local macros = get_macros(file_path)
     
     macros[name] = macro
     local macrosString = "return " .. h.table.to_string(macros)
 
-    write_table_to_file(filepath, macros)
+    write_table_to_file(file_path, macros)
 
     return macros
 end
 
-local remove_macro = function(filepath, name)
-    local macros = get_macros()
+local remove_macro = function(file_path, name)
+    local macros = get_macros(file_path)
     
     macros[name] = nil
 
-    write_table_to_file(filepath, macros)
+    write_table_to_file(file_path, macros)
 end
 
 local macros_to_commands = function(macros)

@@ -18,11 +18,13 @@ M.file_write = function(filepath, content)
 end
 
 M.file_exists = function(name)
+    print(name)
     local f = io.open(name, "r")
     if f ~= nil then
         io.close(f)
         return true
     else
+        io.close(f)
         return false
     end
 end
