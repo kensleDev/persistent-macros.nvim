@@ -23,16 +23,8 @@ M.file_exists = function(name)
         io.close(f)
         return true
     else
-        io.close(f)
         return false
     end
-end
-
-M.dir_exists_v1 = function(path)
-    if (lfs.attributes(path, "mode") == "directory") then
-        return true
-    end
-    return false
 end
 
 M.get_home_dir = function()

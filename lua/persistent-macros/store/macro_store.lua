@@ -2,12 +2,11 @@
 local h = require('persistent-macros.helpers')
 
 local get_macros = function(file_path)
-
     if(not h.io.file_exists(file_path)) then
         h.notify.message("Writing macros.lua file to: " .. file_path, "info")
         h.io.file_write(file_path, "return { Test = \"yyp\"}")
     end
-
+    
     local macros_string = h.io.file_read(file_path)
     
     local macros_table = load(macros_string)()
