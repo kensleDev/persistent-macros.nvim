@@ -15,8 +15,5 @@ M.firstToUpper = function(str)
     return (str:gsub("^%l", string.upper))
 end
 
-M.to_obj = function(s) 
-    return load(s)
-end
 
 return M

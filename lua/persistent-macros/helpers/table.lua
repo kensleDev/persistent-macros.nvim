@@ -48,5 +48,4 @@ M.print = function(tbl)
     print(M.to_string(tbl))
 end
 
-
 return M
